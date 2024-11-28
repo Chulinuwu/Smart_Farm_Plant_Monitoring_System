@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../plantmonitor"
+		},
+		{
+			"name": "test embed",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
