@@ -51,13 +51,17 @@ Outside the `Backend` folder, there is an `ESP32` folder used for programming th
    #ifndef SECRETS_H
    #define SECRETS_H
 
-   #define WIFI_SSID          "YourWiFiSSID"
-   #define WIFI_PASSWORD      "YourWiFiPassword"
-   #define BLYNK_TEMPLATE_ID  "YourBlynkTemplateID"
+   #define WIFI_SSID "YourWiFiSSID"
+   #define WIFI_PASSWORD "YourWiFiPassword"
+   #define BLYNK_TEMPLATE_ID "YourBlynkTemplateID"
    #define BLYNK_TEMPLATE_NAME "YourBlynkTemplateName"
-   #define BLYNK_AUTH_TOKEN   "YourBlynkAuthToken"
-   #define SERVER_ADDRESS     "YourServerAddress"
-   #define SERVER_PORT        YourServerPort
+   #define BLYNK_AUTH_TOKEN "YourBlynkAuthToken"
+   #define SERVER_ADDRESS "YourServerAddress"
+   #define SERVER_PORT YourServerPort
+   #define APPSCRIPTS_URL "https://script.google.com/macros/s/YOUR_APPSCRIPTS_WEBAPP_URL/exec"
+   #define THINGESP_USERNAME "YourThingESPUsername"
+   #define TWILILO_PROJECTNAME "YourTwilioProjectName"
+   #define TWILILO_DEVICENAME "YourTwilioDeviceName"
 
    #endif // SECRETS_H
    ```

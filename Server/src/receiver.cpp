@@ -1,9 +1,6 @@
 #define TRIGGER_PIN 12
 #define ECHO_PIN 14
 #define RELAY_PIN 4
-const int SOIL_PIN = 34;
-float soilMoisture, sensor_analog;
-
 #include "secrets.h"
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
@@ -20,12 +17,19 @@ float soilMoisture, sensor_analog;
 
 const char *ssid = WIFI_SSID;
 const char *password = WIFI_PASSWORD;
+const int SOIL_PIN = 34;
+float soilMoisture, sensor_analog;
+bool commandpump = false;
+long duration;
+unsigned long triggerTime = 0;
+unsigned long echoStartTime = 0;
+unsigned long echoEndTime = 0;
+float distance = 0.0;
+unsigned long previousMillis = 0;
+const long interval = 2000;
 
 WiFiServer server(SERVER_PORT);
 WiFiClient client;
-
-bool commandpump = false;
-long duration;
 
 enum SensorState
 {
@@ -35,31 +39,32 @@ enum SensorState
   CALCULATE_DISTANCE
 };
 SensorState sensorState = IDLE;
-unsigned long triggerTime = 0;
-unsigned long echoStartTime = 0;
-unsigned long echoEndTime = 0;
-float distance = 0.0;
-unsigned long previousMillis = 0;
-const long interval = 2000;
+
 
 void setup()
 {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
+
   Serial.begin(9600);
+
   pinMode(TRIGGER_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   pinMode(RELAY_PIN, OUTPUT);
+
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi...");
+
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(1000);
     Serial.print(".");
   }
+
   Serial.println();
   Serial.println("Connected to WiFi");
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
+  
   server.begin();
   Serial.println("Server started");
 }
