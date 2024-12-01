@@ -5,10 +5,8 @@ This folder contains the backend code for the **Plant Disease Detection** projec
 
 ---
 
-## New Features
-
 ### WhatsApp Query Integration
-- The ESP32 system now supports querying data via WhatsApp messages.
+- Thรห ESP32 system supports querying data via WhatsApp messages.
 - Using Twilio, users can send text queries to receive real-time information about:
   - **Temperature**
   - **Humidity**
@@ -16,7 +14,7 @@ This folder contains the backend code for the **Plant Disease Detection** projec
   - **Light Intensity**
   - **Soil Humidity**
 
-### Google Sheets Integration
+### Real-time Google Sheets update
 - Real-time data updates are now sent to Google Sheets using Google Apps Script.
 - The Apps Script function for processing POST requests:
    ```javascript
