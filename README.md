@@ -6,7 +6,7 @@ This folder contains the backend code for the **Plant Disease Detection** projec
 ---
 
 ### WhatsApp Query Integration
-- Thรห ESP32 system supports querying data via WhatsApp messages.
+- This ESP32 system supports querying data via WhatsApp messages.
 - Using Twilio, users can send text queries to receive real-time information about:
   - **Temperature**
   - **Humidity**
@@ -75,12 +75,12 @@ This folder contains the backend code for the **Plant Disease Detection** projec
 
 ## ESP32 Integration
 
-Outside the `Backend` folder, there is an `ESP32` folder used for programming the ESP32 microcontroller and connecting it to **Blynk**.
+Outside the `Backend` folder, there is an `Server` and `Client`  folder used for programming the ESP32 microcontroller and connecting it to **Blynk**.
 
-### Setup Instructions for ESP32
+### Setup Instructions for both folder
 
 1. **Create `secrets.h`**
-   - Inside the `src` folder of the `ESP32` project, create a file named `secrets.h` with the following content:
+   - Inside the `src` folder of the `Server` and `Client` project, create a file named `secrets.h` with the following content:
 
    ```cpp
    #ifndef SECRETS_H
@@ -126,7 +126,8 @@ Outside the `Backend` folder, there is an `ESP32` folder used for programming th
 - **`leafdisease.py`**: Main application file containing the Flask server and functions for detecting diseases in plants.
 - **`model/`**: Directory containing the pre-trained models.
 - **`requirements.txt`**: File listing the dependencies required for the project.
-- **`ESP32/`**: Folder for ESP32 firmware with the `src` directory to include the `secrets.h` file.
+- **`Server/`**: Folder for ESP32 firmware that control water pump , ultrasonic sensor and soil humimidity sensor and send data back to Client.
+- **`Client/`**: Folder for ESP32 firmware that control lcd display , humidity sensor , temperature sensor , light sensor. this folder needs to connect with Blynk platform and Google sheets. also can command waterpump via Blynk's virtual button and send command to Server.
 
 ---
 
@@ -144,6 +145,7 @@ This project relies on the following Python libraries:
 
 ## Notes
 
+- You can clone another front-end project here [Plant Svelte Front-end](https://github.com/Chulinuwu/PlantSvelte) and use it as a front-end to control this system.
 - Ensure your camera is connected and accessible by OpenCV before starting the application.
 - You can adjust the confidence threshold and other parameters in the `leafdisease.py` file to improve detection performance.
 - For ESP32, ensure your WiFi credentials and Blynk details are correctly configured in the `secrets.h` file.
