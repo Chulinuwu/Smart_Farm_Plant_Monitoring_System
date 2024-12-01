@@ -5,6 +5,48 @@ This folder contains the backend code for the **Plant Disease Detection** projec
 
 ---
 
+## New Features
+
+### WhatsApp Query Integration
+- The ESP32 system now supports querying data via WhatsApp messages.
+- Using Twilio, users can send text queries to receive real-time information about:
+  - **Temperature**
+  - **Humidity**
+  - **Water Level**
+  - **Light Intensity**
+  - **Soil Humidity**
+
+### Google Sheets Integration
+- Real-time data updates are now sent to Google Sheets using Google Apps Script.
+- The Apps Script function for processing POST requests:
+   ```javascript
+   function doPost(e) {
+       try {
+           Logger.log("Received POST request: " + JSON.stringify(e)); // Log the entire event object
+           if (e.postData) {
+               var sheet = SpreadsheetApp.openById("YOUR_SPREADSHEET_ID").getActiveSheet();
+               var data = JSON.parse(e.postData.contents);
+               Logger.log("Parsed data: " + JSON.stringify(data)); // Log the parsed data
+               sheet.appendRow([new Date(), data.humidity, data.temperature, data.waterLevel, data.soilHumidity]);
+               return ContentService.createTextOutput("Success");
+           } else {
+               Logger.log("No postData received");
+               return ContentService.createTextOutput("Error: No postData received");
+           }
+       } catch (error) {
+           Logger.log("Error: " + error.message);
+           return ContentService.createTextOutput("Error: " + error.message);
+       }
+   }
+   ```
+
+- Steps to deploy the Apps Script:
+  1. Save the script in your Google Apps Script editor.
+  2. Deploy it as a web app.
+  3. Paste the web app URL into the `secrets.h` file.
+
+---
+
 ## Setup Instructions
 
 ### 1. Download the Model
@@ -30,11 +72,6 @@ This folder contains the backend code for the **Plant Disease Detection** projec
    ```sh
    python leafdisease.py
    ```
-
----
-
-## Access the Video Feed
-- Open your web browser and navigate to [http://localhost:5000/video_feed](http://localhost:5000/video_feed) to view the real-time video feed with plant disease detection.
 
 ---
 
@@ -112,3 +149,5 @@ This project relies on the following Python libraries:
 - Ensure your camera is connected and accessible by OpenCV before starting the application.
 - You can adjust the confidence threshold and other parameters in the `leafdisease.py` file to improve detection performance.
 - For ESP32, ensure your WiFi credentials and Blynk details are correctly configured in the `secrets.h` file.
+- Test WhatsApp query responses to confirm integration with Twilio.
+- Verify that data updates are reflected in Google Sheets.
